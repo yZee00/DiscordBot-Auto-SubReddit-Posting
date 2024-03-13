@@ -6,6 +6,8 @@ pip install -r requirements.txt
 ```
 
 ## How To Use
+Edit .env file first!
+
 ```
 # Add subreddits for automatic posting in specified channel
 !!!monitor SUBREDDIT_NAME CHANNEL_ID
