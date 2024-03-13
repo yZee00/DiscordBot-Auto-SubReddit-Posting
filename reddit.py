@@ -95,7 +95,7 @@ async def on_message(message):
             pass
         else:
             # Regular expression to match Discord and Telegram invite links
-            if re.search(r'(discord\.gg\/[a-zA-Z0-9]+)|(t\.me\/[a-zA-Z0-9]+)|(telegram\.me\/[a-zA-Z0-9]+)|(discord\.com\/[a-zA-Z0-9]+)', message.content):
+            if re.search(r'(discord\.gg\/[a-zA-Z0-9]+)|(t\.me\/[a-zA-Z0-9]+)|(telegram\.me\/[a-zA-Z0-9]+)|(discord\.com\/[a-zA-Z0-9]+)|(signal\.com\/[a-zA-Z0-9]+)', message.content):
                 await message.delete()
                 print(f"User {message.author} banned for posting links")
                 try:
