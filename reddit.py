@@ -60,7 +60,7 @@ async def scheduled_task():
     try:
         ensure_connection()
         await channel_private.send("Running scheduled task!")
-        redditDB.execute("SELECT subreddit, channel_id FROM channel1")
+        redditDB.execute("SELECT subreddit, channel_id FROM sub_channel")
         rows = redditDB.fetchall()
         for subreddit_name, discord_channel_id in rows:
             result = await check_reddit(reddit, subreddit_name, discord_channel_id)
@@ -136,14 +136,14 @@ async def monitor(ctx, subreddit_name: str, discord_channel_id: int):
         try:
             ensure_connection()
             # Check for duplicate entries
-            redditDB.execute("SELECT * FROM channel1 WHERE subreddit = %s AND channel_id = %s",
+            redditDB.execute("SELECT * FROM sub_channel WHERE subreddit = %s AND channel_id = %s",
                                 (subreddit_name, discord_channel_id))
             if redditDB.fetchone():
                 await ctx.send("This subreddit is already being monitored in the specified channel.")
                 return
 
             # Save to database
-            redditDB.execute("INSERT INTO channel1 (subreddit, channel_id) VALUES (%s, %s)",
+            redditDB.execute("INSERT INTO sub_channel (subreddit, channel_id) VALUES (%s, %s)",
                                 (subreddit_name, discord_channel_id))
             reddit.commit()
             await ctx.send("Subreddit successfully added to the monitoring list.")
@@ -174,7 +174,7 @@ async def post_latest(ctx):
         reddit = asyncpraw.Reddit(client_id=CLIENT_ID, client_secret=SECRET, user_agent=AGENT)
         try:
             ensure_connection()
-            redditDB.execute("SELECT subreddit, channel_id FROM channel1")
+            redditDB.execute("SELECT subreddit, channel_id FROM sub_channel")
             rows = redditDB.fetchall()
             for subreddit_name, discord_channel_id in rows:
                 result = await check_reddit(reddit, subreddit_name, discord_channel_id)
