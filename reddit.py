@@ -15,7 +15,7 @@ load_dotenv()
 
 intents = discord.Intents.all()
 
-TOKEN = os.getenv('REDDIT')
+TOKEN = os.getenv('DISCORD_BOT_TOKEN')
 
 CLIENT_ID = os.getenv('CLIENT_ID')
 SECRET = os.getenv('SECRET')
@@ -23,17 +23,17 @@ AGENT = os.getenv('AGENT')
 
 USER = os.getenv('USER')
 PASS = os.getenv('PASS')
-DATABASE = os.getenv('DATABASEREDDIT')
+DATABASE = os.getenv('DATABASE_REDDIT')
 
-freegames = mysql.connector.connect(
+reddit = mysql.connector.connect(
     host="localhost",
     user= USER,
     password= PASS,
     database= DATABASE
 )
-print("freegamesDB: " + str(freegames))
+print("redditDB: " + str(reddit))
 
-freegamesDB = freegames.cursor()
+redditDB = reddit.cursor()
 
 # Discord bot setup
 bot = commands.Bot(command_prefix='!!!', help_command=None, intents=intents)
@@ -48,7 +48,7 @@ last_posted_url = {}
 def ensure_connection():
     try:
         # Check if connection is alive
-        freegames.ping(reconnect=True, attempts=3, delay=5)
+        reddit.ping(reconnect=True, attempts=3, delay=5)
     except mysql.connector.Error as err:
         print(f"Error while reconnecting to the database: {err}")
         # Handle reconnection error if needed
@@ -60,8 +60,8 @@ async def scheduled_task():
     try:
         ensure_connection()
         await channel_private.send("Running scheduled task!")
-        freegamesDB.execute("SELECT subreddit, channel_id FROM channel1")
-        rows = freegamesDB.fetchall()
+        redditDB.execute("SELECT subreddit, channel_id FROM channel1")
+        rows = redditDB.fetchall()
         for subreddit_name, discord_channel_id in rows:
             result = await check_reddit(reddit, subreddit_name, discord_channel_id)
             if result:
@@ -136,16 +136,16 @@ async def monitor(ctx, subreddit_name: str, discord_channel_id: int):
         try:
             ensure_connection()
             # Check for duplicate entries
-            freegamesDB.execute("SELECT * FROM channel1 WHERE subreddit = %s AND channel_id = %s",
+            redditDB.execute("SELECT * FROM channel1 WHERE subreddit = %s AND channel_id = %s",
                                 (subreddit_name, discord_channel_id))
-            if freegamesDB.fetchone():
+            if redditDB.fetchone():
                 await ctx.send("This subreddit is already being monitored in the specified channel.")
                 return
 
             # Save to database
-            freegamesDB.execute("INSERT INTO channel1 (subreddit, channel_id) VALUES (%s, %s)",
+            redditDB.execute("INSERT INTO channel1 (subreddit, channel_id) VALUES (%s, %s)",
                                 (subreddit_name, discord_channel_id))
-            freegames.commit()
+            reddit.commit()
             await ctx.send("Subreddit successfully added to the monitoring list.")
         except mysql.connector.Error as err:
             print(f"Database error: {err}")
@@ -174,8 +174,8 @@ async def post_latest(ctx):
         reddit = asyncpraw.Reddit(client_id=CLIENT_ID, client_secret=SECRET, user_agent=AGENT)
         try:
             ensure_connection()
-            freegamesDB.execute("SELECT subreddit, channel_id FROM channel1")
-            rows = freegamesDB.fetchall()
+            redditDB.execute("SELECT subreddit, channel_id FROM channel1")
+            rows = redditDB.fetchall()
             for subreddit_name, discord_channel_id in rows:
                 result = await check_reddit(reddit, subreddit_name, discord_channel_id)
                 if result:
