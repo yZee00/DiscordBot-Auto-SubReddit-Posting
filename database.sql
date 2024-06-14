@@ -8,18 +8,18 @@ START TRANSACTION;
 /*!40101 SET NAMES utf8mb4 */;
 
 
-DROP TABLE IF EXISTS `channel1`;
-CREATE TABLE `channel1` (
+DROP TABLE IF EXISTS `sub_channel`;
+CREATE TABLE `sub_channel` (
   `id` int NOT NULL,
   `subreddit` varchar(64) NOT NULL,
   `channel_id` varchar(64) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
-ALTER TABLE `channel1`
+ALTER TABLE `sub_channel`
   ADD PRIMARY KEY (`id`);
 
 
-ALTER TABLE `channel1`
+ALTER TABLE `sub_channel`
   MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=126;
 COMMIT;
 
