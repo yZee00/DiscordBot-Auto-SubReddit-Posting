@@ -1,5 +1,5 @@
-# Discord bot using Reddit API
-Discord Bot for posting automatic Reddit video's, GIF's and photo's
+# Discord Bot Auto Reddit Posting
+Discord bot using Reddit API for posting automatic Reddit video's, GIF's and photo's
 
 ## Installation
 1. Install Python libraries and set up server
