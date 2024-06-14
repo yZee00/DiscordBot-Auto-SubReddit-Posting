@@ -1,4 +1,4 @@
-# Discord bot with Reddit API
+# Discord bot using Reddit API
 Discord Bot for posting automatic Reddit video's, GIF's and photo's
 
 ## Installation
