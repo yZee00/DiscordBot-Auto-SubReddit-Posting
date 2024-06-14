@@ -1,4 +1,4 @@
-# Discord Bot for posting automatic Reddit video's, GIF's and photo's in Discord
+# Discord Bot for posting automatic Reddit video's, GIF's and photo's
 
 ## Install libraries
 ```
