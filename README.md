@@ -7,6 +7,11 @@ Discord bot using Reddit API for posting automatic SubReddit video's, GIF's and 
 # If running on server/VPS, I would recommend running in a screen sessions.
 screen -RD reddit
 
+# Clone repo
+https://github.com/yZ1337/DiscordBot-Auto-SubReddit-Posting.git
+cd DiscordBot-Auto-SubReddit-Posting
+
+# Install Python libraries
 pip install -r requirements.txt
 ```
 2. Install the `database.sql` file into your database.
