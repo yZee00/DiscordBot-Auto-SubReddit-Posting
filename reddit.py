@@ -25,6 +25,9 @@ USER = os.getenv('USER')
 PASS = os.getenv('PASS')
 DATABASE = os.getenv('DATABASE_REDDIT')
 
+SCHEDULED_TIME = os.getenv('SCHEDULED_TIME')
+GAMENAME = os.getenv('GAMENAME')
+
 reddit = mysql.connector.connect(
     host="localhost",
     user= USER,
@@ -53,7 +56,7 @@ def ensure_connection():
         print(f"Error while reconnecting to the database: {err}")
         # Handle reconnection error if needed
 
-@tasks.loop(hours=24)
+@tasks.loop(hours=SCHEDULED_TIME)
 async def scheduled_task():
     reddit = asyncpraw.Reddit(client_id=CLIENT_ID, client_secret=SECRET, user_agent=AGENT)
     channel_private = bot.get_channel(CHANGE THIS HERE)
@@ -113,8 +116,7 @@ async def on_ready():
     print(f'Logged in as {bot.user}')
     if not scheduled_task.is_running():
         scheduled_task.start()
-    game_name = ""
-    await bot.change_presence(activity=discord.Game(name=game_name))
+    await bot.change_presence(activity=discord.Game(name=GAMENAME))
 
 @bot.event
 async def on_member_join(member):
