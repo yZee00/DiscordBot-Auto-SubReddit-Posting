@@ -1,5 +1,5 @@
 # Discord Bot Automatic SubReddit Posting
-Discord bot using Reddit API for posting automatic SubReddit video's, GIF's and photo's
+Discord bot using Reddit API for posting automatic SubReddit video's, GIF's and photo's in your Discord channels! ⭐
 
 ## Installation
 1. Install Python libraries and set up server
