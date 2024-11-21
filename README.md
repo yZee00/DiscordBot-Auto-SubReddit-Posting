@@ -11,16 +11,24 @@ screen -RD reddit
 https://github.com/yZ1337/DiscordBot-Auto-SubReddit-Posting.git
 cd DiscordBot-Auto-SubReddit-Posting
 
+# Create a venv
+python3 -m venv venv
+
+# Activate venv
+source venv/bin/activate
+
 # Install Python libraries
-pip install -r requirements.txt
+pip3 install -r requirements.txt
 ```
-2. Install the `database.sql` file into your database.
+2. Load the `database.sql` file into your database.
 
 ## How To Run
 **Edit `.env` file first!**
 Includes:
 - Reddit API keys [Get them here](https://www.reddit.com/dev/api/)
 - Database information
+
+RUN! :)
 ```
 python3 reddit.py
 ```
