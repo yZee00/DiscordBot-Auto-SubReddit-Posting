@@ -13,7 +13,7 @@ import re
 
 load_dotenv()
 
-intents = discord.Intents.all()
+intents = discord.Intents.default()
 
 TOKEN = os.getenv('DISCORD_BOT_TOKEN')
 
