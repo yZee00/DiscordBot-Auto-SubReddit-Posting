@@ -25,7 +25,7 @@ pip3 install -r requirements.txt
 ## How To Run
 **Edit `.env` file first!**
 Includes:
-- Reddit API keys [Get them here]([[https://www.reddit.com/dev/api/](https://www.reddit.com/prefs/apps/?solution=30612ad914ef42d330612ad914ef42d3&js_challenge=1&token=54dba411ecc9fd270bca6277dc2a436123031c4895d451a3688276065b564b27)](https://www.reddit.com/prefs/apps))
+- Reddit API keys [Get them here](https://www.reddit.com/prefs/apps)
 - Database information
 
 RUN! :)
