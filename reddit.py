@@ -252,6 +252,10 @@ async def remove_duplicates(ctx, limit: int = 10):
     print(f"Removed {len(duplicates)} duplicate messages.")
 
 async def auto_remove_duplicates(channel, limit=10):
+    if not channel:
+        print("auto_remove_duplicates: Channel is None")
+        return
+
     if limit > 1000:
         print("Limit is too high. Please use a number less than or equal to 1000.")
         return
@@ -259,14 +263,13 @@ async def auto_remove_duplicates(channel, limit=10):
     try:
         messages = [msg async for msg in channel.history(limit=limit)]
     except Exception as e:
-        print(f"Error fetching messages in channel {channel.id}: {e}")
+        print(f"Error fetching messages in channel {channel.id if channel else 'Unknown'}: {e}")
         return
 
     seen = defaultdict(list)
     duplicates = []
 
     for msg in messages:
-        # This will group messages by their content
         seen[msg.content].append(msg)
 
     for msgs in seen.values():
@@ -280,5 +283,6 @@ async def auto_remove_duplicates(channel, limit=10):
             print(f"Failed to delete message: {e}")
 
     print(f"Removed {len(duplicates)} duplicate messages.")
+
 
 bot.run(TOKEN)
