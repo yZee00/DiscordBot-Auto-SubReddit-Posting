@@ -21,6 +21,7 @@ source venv/bin/activate
 pip3 install -r requirements.txt
 ```
 2. Load the `database.sql` file into your database.
+3. Edit line 43, 45 and 58 in `reddit.py`
 
 ## How To Run
 **Edit `.env` file first!**
